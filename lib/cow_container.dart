@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'page_navigator_cubit/page_navigator_cubit.dart';
 
 class CowContainer extends StatelessWidget {
   const CowContainer({super.key});
@@ -20,7 +23,9 @@ class CowContainer extends StatelessWidget {
           Icons.menu,
           color: Colors.white,
         ),
-        onTap: () {},
+        onTap: () {
+          context.read<PageNavigatorCubit>().showCowInDetail();
+        },
       ),
     );
   }
