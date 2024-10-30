@@ -1,3 +1,4 @@
+import 'package:cows_app/cow_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,23 +15,38 @@ void main() {
       ],
       child: BlocListener<PageNavigatorCubit, PageNavigatorState>(
         listener: (context, state) {
-          if(state is PageNavigatorShowCowDetailViewActionState){
-            print('pitote');
+          if (state is PageNavigatorShowCowDetailViewActionState) {
+            Navigator.of(context).pushNamed('/vistaDetallada');
           }
         },
         child: MaterialApp(
-          home: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.indigo,
-              title: const Center(
-                child: Text(
-                  'Cow Info',
-                  style: TextStyle(color: Colors.white),
+          initialRoute: '/',
+          routes: {
+            '/': (_) => Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Colors.indigo,
+                    title: const Center(
+                      child: Text(
+                        'Cow Info',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  body: const Home(),
                 ),
-              ),
-            ),
-            body: const Home(),
-          ),
+            '/vistaDetallada': (_) => Scaffold(
+                  appBar: AppBar(
+                    backgroundColor: Colors.indigo,
+                    title: const Center(
+                      child: Text(
+                        'Cow Info',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  body: const CowDetailView(),
+                )
+          },
         ),
       ),
     ),
