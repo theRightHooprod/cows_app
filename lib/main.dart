@@ -13,16 +13,16 @@ void main() {
           create: (_) => PageNavigatorCubit(),
         )
       ],
-      child: BlocListener<PageNavigatorCubit, PageNavigatorState>(
-        listener: (context, state) {
-          if (state is PageNavigatorShowCowDetailViewActionState) {
-            Navigator.of(context).pushNamed('/vistaDetallada');
-          }
-        },
-        child: MaterialApp(
-          initialRoute: '/',
-          routes: {
-            '/': (_) => Scaffold(
+      child: MaterialApp(
+        initialRoute: '/',
+        routes: {
+          '/': (_) => BlocListener<PageNavigatorCubit, PageNavigatorState>(
+                listener: (context, state) {
+                  if (state is PageNavigatorShowCowDetailViewActionState) {
+                    Navigator.of(context).pushNamed('/vistaDetallada');
+                  }
+                },
+                child: Scaffold(
                   appBar: AppBar(
                     backgroundColor: Colors.indigo,
                     title: const Center(
@@ -34,20 +34,20 @@ void main() {
                   ),
                   body: const Home(),
                 ),
-            '/vistaDetallada': (_) => Scaffold(
-                  appBar: AppBar(
-                    backgroundColor: Colors.indigo,
-                    title: const Center(
-                      child: Text(
-                        'Cow Info',
-                        style: TextStyle(color: Colors.white),
-                      ),
+              ),
+          '/vistaDetallada': (_) => Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.indigo,
+                  title: const Center(
+                    child: Text(
+                      'Cow Info',
+                      style: TextStyle(color: Colors.white),
                     ),
                   ),
-                  body: const CowDetailView(),
-                )
-          },
-        ),
+                ),
+                body: const CowDetailView(),
+              )
+        },
       ),
     ),
   );
