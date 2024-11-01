@@ -19,7 +19,14 @@ void main() {
           '/': (_) => BlocListener<PageNavigatorCubit, PageNavigatorState>(
                 listener: (context, state) {
                   if (state is PageNavigatorShowCowDetailViewActionState) {
-                    Navigator.of(context).pushNamed('/vistaDetallada');
+                    Navigator.of(context).pushNamed(
+                      '/vistaDetallada',
+                      arguments: [
+                        state.name,
+                        state.description,
+                        state.imageUrl
+                      ],
+                    );
                   }
                 },
                 child: Scaffold(
@@ -35,18 +42,27 @@ void main() {
                   body: const Home(),
                 ),
               ),
-          '/vistaDetallada': (_) => Scaffold(
-                appBar: AppBar(
-                  backgroundColor: Colors.indigo,
-                  title: const Center(
-                    child: Text(
-                      'Cow Info',
-                      style: TextStyle(color: Colors.white),
-                    ),
+          '/vistaDetallada': (context) {
+            final arguments =
+                ModalRoute.of(context)?.settings.arguments as List<String>;
+
+            return Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.indigo,
+                title: const Center(
+                  child: Text(
+                    'Cow Info',
+                    style: TextStyle(color: Colors.white),
                   ),
                 ),
-                body: const CowDetailView(),
-              )
+              ),
+              body: CowDetailView(
+                name: arguments[0],
+                description: arguments[1],
+                imageUrl: arguments[2],
+              ),
+            );
+          }
         },
       ),
     ),
